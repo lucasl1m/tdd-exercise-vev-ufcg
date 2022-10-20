@@ -1,3 +1,5 @@
+from funcionario import *
+
 def test_funcionario():
     funcionario = Funcionario()
     assert funcionario.nome == ''
