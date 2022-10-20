@@ -7,3 +7,6 @@ class Funcionario:
     
     def get_salario(self):
         return self.salario_base
+    
+    def get_cargo(self):
+        return self.cargo
