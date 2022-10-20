@@ -24,9 +24,8 @@ public class GerarNotaFiscalImpl implements GerarNotaFiscal {
     public NotaFiscal gerar(Fatura fatura) {
         BigDecimal valorImposto = fatura.getValor().multiply(BigDecimal.valueOf(porcentagemImposto(fatura.getTipo())));
         NotaFiscal nota = new NotaFiscal(fatura.getNome(), fatura.getValor(), valorImposto);
-        this.enviaNotaEmail.envia(nota);
-        this.enviaNotaERP.envia(nota);
         this.adicionaNotaRepository.salva(nota);
+        this.notifica(nota);
         return nota;
     }
 
@@ -36,5 +35,10 @@ public class GerarNotaFiscalImpl implements GerarNotaFiscal {
             case "TREINAMENTO" -> 0.15;
             default -> 0.06;
         };
+    }
+
+    private void notifica(NotaFiscal nota) {
+        this.enviaNotaEmail.envia(nota);
+        this.enviaNotaERP.envia(nota);
     }
 }
