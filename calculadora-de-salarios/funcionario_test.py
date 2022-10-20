@@ -11,3 +11,6 @@ def test_get_salario():
     funcionario = Funcionario('', '', 0, '')
     assert funcionario.get_salario() == 0
 
+def test_get_cargo():
+    funcionario = Funcionario('', '', 0, '')
+    assert funcionario.get_cargo() == ''
