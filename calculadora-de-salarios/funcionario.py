@@ -4,3 +4,6 @@ class Funcionario:
         self.email = email
         self.salario_base = salario_base
         self.cargo = cargo
+    
+    def get_salario(self):
+        return self.salario_base
