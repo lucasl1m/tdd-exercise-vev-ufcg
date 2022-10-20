@@ -25,4 +25,13 @@ public class NotaFiscal {
     public BigDecimal getValorImposto() {
         return valorImposto;
     }
+
+    @Override
+    public String toString() {
+        return "NotaFiscal{" +
+                "nomeCliente='" + nomeCliente + '\'' +
+                ", valor=" + valor +
+                ", valorImposto=" + valorImposto +
+                '}';
+    }
 }
