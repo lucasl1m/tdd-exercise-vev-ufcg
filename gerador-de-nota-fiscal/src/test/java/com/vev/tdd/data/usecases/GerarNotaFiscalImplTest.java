@@ -25,4 +25,10 @@ class GerarNotaFiscalImplTest {
         NotaFiscal nota = sut.gerar(fatura);
         assertEquals(fatura.getNome(), nota.getNomeCliente());
     }
+
+    @Test
+    void testValorDaNota() {
+        NotaFiscal nota = sut.gerar(fatura);
+        assertEquals(0, fatura.getValor().compareTo(nota.getValor()));
+    }
 }

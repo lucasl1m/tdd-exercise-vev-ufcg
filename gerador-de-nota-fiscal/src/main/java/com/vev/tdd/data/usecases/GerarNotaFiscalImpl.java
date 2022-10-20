@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class GerarNotaFiscalImpl implements GerarNotaFiscal {
     @Override
     public NotaFiscal gerar(Fatura fatura) {
-        NotaFiscal nota = new NotaFiscal(fatura.getNome(), BigDecimal.valueOf(0), BigDecimal.valueOf(0));
+        NotaFiscal nota = new NotaFiscal(fatura.getNome(), fatura.getValor(), BigDecimal.valueOf(0));
         return nota;
     }
 }
