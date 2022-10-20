@@ -31,4 +31,28 @@ class GerarNotaFiscalImplTest {
         NotaFiscal nota = sut.gerar(fatura);
         assertEquals(0, fatura.getValor().compareTo(nota.getValor()));
     }
+
+    @Test
+    void testValorDoImpostoConsultoria() {
+        Fatura fatura = new Fatura("qualquer-nome", "qualquer-endereco", "CONSULTORIA", BigDecimal.valueOf(100));
+        NotaFiscal nota = sut.gerar(fatura);
+        BigDecimal valorEsperado = BigDecimal.valueOf(25);
+        assertEquals(0, valorEsperado.compareTo(nota.getValorImposto()));
+    }
+
+    @Test
+    void testValorDoImpostoTreinamento() {
+        Fatura fatura = new Fatura("qualquer-nome", "qualquer-endereco", "TREINAMENTO", BigDecimal.valueOf(100));
+        NotaFiscal nota = sut.gerar(fatura);
+        BigDecimal valorEsperado = BigDecimal.valueOf(15);
+        assertEquals(0, valorEsperado.compareTo(nota.getValorImposto()));
+    }
+
+    @Test
+    void testValorDoImpostoOutro() {
+        Fatura fatura = new Fatura("qualquer-nome", "qualquer-endereco", "OUTRO", BigDecimal.valueOf(100));
+        NotaFiscal nota = sut.gerar(fatura);
+        BigDecimal valorEsperado = BigDecimal.valueOf(6);
+        assertEquals(0, valorEsperado.compareTo(nota.getValorImposto()));
+    }
 }

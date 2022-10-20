@@ -9,7 +9,15 @@ import java.math.BigDecimal;
 public class GerarNotaFiscalImpl implements GerarNotaFiscal {
     @Override
     public NotaFiscal gerar(Fatura fatura) {
-        NotaFiscal nota = new NotaFiscal(fatura.getNome(), fatura.getValor(), BigDecimal.valueOf(0));
-        return nota;
+        BigDecimal valorImposto = fatura.getValor().multiply(BigDecimal.valueOf(porcentagemImposto(fatura.getTipo())));
+        return new NotaFiscal(fatura.getNome(), fatura.getValor(), valorImposto);
+    }
+
+    private double porcentagemImposto(String tipo) {
+        return switch (tipo) {
+            case "CONSULTORIA" -> 0.25;
+            case "TREINAMENTO" -> 0.15;
+            default -> 0.06;
+        };
     }
 }
