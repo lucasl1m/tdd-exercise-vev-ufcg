@@ -1,6 +1,6 @@
 class Funcionario:
-    def __init__(self):
-        self.nome = ''
-        self.email = ''
-        self.salario_base = 0
-        self.cargo = ''
+    def __init__(self, nome, email, salario_base, cargo):
+        self.nome = nome
+        self.email = email
+        self.salario_base = salario_base
+        self.cargo = cargo
