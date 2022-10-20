@@ -1,5 +1,6 @@
 package com.vev.tdd.data.usecases;
 
+import com.vev.tdd.data.protocols.EnviaNotaEmail;
 import com.vev.tdd.domain.models.Fatura;
 import com.vev.tdd.domain.models.NotaFiscal;
 import com.vev.tdd.domain.usecases.GerarNotaFiscal;
@@ -8,15 +9,19 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 class GerarNotaFiscalImplTest {
-    GerarNotaFiscal sut;
-    Fatura fatura;
+    private GerarNotaFiscal sut;
+    private Fatura fatura;
+    private EnviaNotaEmail enviaNotaEmail;
 
     @BeforeEach
     void setUp() {
-        sut = new GerarNotaFiscalImpl();
+        enviaNotaEmail = mock(EnviaNotaEmail.class);
+        sut = new GerarNotaFiscalImpl(enviaNotaEmail);
         fatura = new Fatura("qualquer-nome", "qualquer-endereco", "qualquer-tipo", BigDecimal.valueOf(100));
     }
 
@@ -54,5 +59,12 @@ class GerarNotaFiscalImplTest {
         NotaFiscal nota = sut.gerar(fatura);
         BigDecimal valorEsperado = BigDecimal.valueOf(6);
         assertEquals(0, valorEsperado.compareTo(nota.getValorImposto()));
+    }
+
+    @Test
+    void testEmailEnviado() {
+        doNothing().when(enviaNotaEmail).envia(any(NotaFiscal.class));
+        NotaFiscal nota = sut.gerar(fatura);
+        verify(enviaNotaEmail, times(1)).envia(nota);
     }
 }
