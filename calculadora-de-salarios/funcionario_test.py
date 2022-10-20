@@ -6,5 +6,8 @@ def test_funcionario_init():
     assert funcionario.email == ''
     assert funcionario.salario_base == 0
     assert funcionario.cargo == ''
-    
+
+def test_get_salario():
+    funcionario = Funcionario('', '', 0, '')
+    assert funcionario.get_salario() == 0
 
