@@ -1,5 +1,6 @@
 package com.vev.tdd.data.usecases;
 
+import com.vev.tdd.data.protocols.AdicionaNotaRepository;
 import com.vev.tdd.data.protocols.EnviaNotaERP;
 import com.vev.tdd.data.protocols.EnviaNotaEmail;
 import com.vev.tdd.domain.models.Fatura;
@@ -19,12 +20,14 @@ class GerarNotaFiscalImplTest {
     private Fatura fatura;
     private EnviaNotaEmail enviaNotaEmail;
     private EnviaNotaERP enviaNotaERP;
+    private AdicionaNotaRepository adicionaNotaRepository;
 
     @BeforeEach
     void setUp() {
         enviaNotaEmail = mock(EnviaNotaEmail.class);
         enviaNotaERP = mock(EnviaNotaERP.class);
-        sut = new GerarNotaFiscalImpl(enviaNotaEmail, enviaNotaERP);
+        adicionaNotaRepository = mock(AdicionaNotaRepository.class);
+        sut = new GerarNotaFiscalImpl(enviaNotaEmail, enviaNotaERP, adicionaNotaRepository);
         fatura = new Fatura("qualquer-nome", "qualquer-endereco", "qualquer-tipo", BigDecimal.valueOf(100));
     }
 
@@ -76,5 +79,12 @@ class GerarNotaFiscalImplTest {
         doNothing().when(enviaNotaERP).envia(any(NotaFiscal.class));
         NotaFiscal nota = sut.gerar(fatura);
         verify(enviaNotaERP, times(1)).envia(nota);
+    }
+
+    @Test
+    void testNotaAdicionadaNoBanco() {
+        doNothing().when(adicionaNotaRepository).salva(any(NotaFiscal.class));
+        NotaFiscal nota = sut.gerar(fatura);
+        verify(adicionaNotaRepository, times(1)).salva(nota);
     }
 }

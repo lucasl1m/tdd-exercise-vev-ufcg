@@ -1,5 +1,6 @@
 package com.vev.tdd.data.usecases;
 
+import com.vev.tdd.data.protocols.AdicionaNotaRepository;
 import com.vev.tdd.data.protocols.EnviaNotaERP;
 import com.vev.tdd.data.protocols.EnviaNotaEmail;
 import com.vev.tdd.domain.models.Fatura;
@@ -11,10 +12,12 @@ import java.math.BigDecimal;
 public class GerarNotaFiscalImpl implements GerarNotaFiscal {
     private EnviaNotaEmail enviaNotaEmail;
     private EnviaNotaERP enviaNotaERP;
+    private AdicionaNotaRepository adicionaNotaRepository;
 
-    public GerarNotaFiscalImpl(EnviaNotaEmail enviaNotaEmail, EnviaNotaERP enviaNotaERP) {
+    public GerarNotaFiscalImpl(EnviaNotaEmail enviaNotaEmail, EnviaNotaERP enviaNotaERP, AdicionaNotaRepository adicionaNotaRepository) {
         this.enviaNotaEmail = enviaNotaEmail;
         this.enviaNotaERP = enviaNotaERP;
+        this.adicionaNotaRepository = adicionaNotaRepository;
     }
 
     @Override
@@ -23,6 +26,7 @@ public class GerarNotaFiscalImpl implements GerarNotaFiscal {
         NotaFiscal nota = new NotaFiscal(fatura.getNome(), fatura.getValor(), valorImposto);
         this.enviaNotaEmail.envia(nota);
         this.enviaNotaERP.envia(nota);
+        this.adicionaNotaRepository.salva(nota);
         return nota;
     }
 
