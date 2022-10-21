@@ -32,3 +32,27 @@ def test_valid_params_get_cargo():
     funcionario = Funcionario('', '', 0, 'Gerente')
     assert funcionario.get_cargo() == 'GERENTE'
 
+def test_valid_calc_salario_liquido():
+    funcionario = Funcionario('', '', 7000, 'DESENVOLVEDOR')
+    assert funcionario.calc_salario_liquido() == 5600
+
+    funcionario = Funcionario('', '', 2900, 'DESENVOLVEDOR')
+    assert funcionario.calc_salario_liquido() == 2610
+
+    funcionario = Funcionario('', '', 2000, 'DBA')
+    assert funcionario.calc_salario_liquido() == 1500
+
+    funcionario = Funcionario('', '', 1900, 'DBA')
+    assert funcionario.calc_salario_liquido() == 1615
+
+    funcionario = Funcionario('', '', 3000, 'TESTADOR')
+    assert funcionario.calc_salario_liquido() == 2250
+
+    funcionario = Funcionario('', '', 1999, 'TESTADOR')
+    assert funcionario.calc_salario_liquido() == 1699.15
+
+    funcionario = Funcionario('', '', 4000, 'GERENTE')
+    assert funcionario.calc_salario_liquido() == 3200
+
+    funcionario = Funcionario('', '', 5000, 'GERENTE')
+    assert funcionario.calc_salario_liquido() == 3800
