@@ -56,3 +56,13 @@ def test_valid_calc_salario_liquido():
 
     funcionario = Funcionario('', '', 5000, 'GERENTE')
     assert funcionario.calc_salario_liquido() == 3500.00
+
+def test_invalid_calc_salario_liquido():
+    funcionario = Funcionario('', '', 4000, 'PO')
+    assert funcionario.calc_salario_liquido() == 0
+
+    funcionario = Funcionario('', '', 2000, 'DBA')
+    assert funcionario.calc_salario_liquido() != 1700.00
+
+    funcionario = Funcionario('', '', 0, '')
+    assert funcionario.calc_salario_liquido() == 0
