@@ -10,3 +10,27 @@ class Funcionario:
     
     def get_cargo(self):
         return self.cargo
+    
+    def calc_salario_liquido(self):
+        if self.cargo == 'DESENVOLVEDOR':
+            if self.salario_base >= 3000:
+                return float(f'{self.salario_base * 0.8:.2f}')
+            else:
+                return float(f'{self.salario_base * 0.9:.2f}')
+        elif self.cargo == 'DBA':
+            if self.salario_base >= 2000:
+                return float(f'{self.salario_base * 0.75:.2f}')
+            else:
+                return float(f'{self.salario_base * 0.85:.2f}')
+        elif self.cargo == 'TESTADOR':
+            if self.salario_base >= 2000:
+                return float(f'{self.salario_base * 0.75:.2f}')
+            else:
+                return float(f'{self.salario_base * 0.85:.2f}')
+        elif self.cargo == 'GERENTE':
+            if self.salario_base >= 5000:
+                return float(f'{self.salario_base * 0.7:.2f}')
+            else:
+                return float(f'{self.salario_base * 0.8:.2f}')
+        else:
+            return 0
