@@ -7,7 +7,7 @@ class Funcionario:
 
         self.nome = nome
         self.email = email
-        self.salario_base = salario_base
+        self.salario_base = float(salario_base)
         self.cargo = cargo.upper()
         
     
@@ -20,6 +20,6 @@ class Funcionario:
     def calc_salario_liquido(self):
 
         if ( cargos[self.cargo]['limite'] <= self.salario_base ):
-            return self.salario_base - (self.salario_base * (cargos[self.cargo]['desconto1']))
+            return round((self.salario_base - (self.salario_base * (cargos[self.cargo]['desconto1']))), 2)
         else:
-            return self.salario_base - (self.salario_base * (cargos[self.cargo]['desconto2']))
+            return round(self.salario_base - (self.salario_base * (cargos[self.cargo]['desconto2'])), 2)
